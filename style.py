@@ -60,14 +60,14 @@ style_table = {
     'overflowX': 'auto',
     'overflowY': 'auto',
     'width': '1300px',
-    'height': '300px',
-    'margin':'5px auto',
+    'height': '250px',
+    'margin':'0px auto',
     'box-shadow':'0px 0px 30px 0px rgba(35, 61, 77, 0.5)'
 }
 
 style_table_div = {
     'width':1300,
-    'margin':'5px auto',
+    'margin':'0px auto',
 }
 
 # ----------------------------------------
@@ -125,6 +125,7 @@ style_button_3 = {
     'min-width': '10px',
     'padding': '5px 50px',
 
+    'border':'none',
     'background-color':'#FE7F2D',
     # 'opacity': 0.5,
     'color': '#233D4D',
