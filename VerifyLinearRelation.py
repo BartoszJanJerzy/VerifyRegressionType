@@ -18,7 +18,7 @@ import base64
 # IMPORTOWANIE MODUŁÓW
 # style
 from style import external_stylesheets, style_whole, style_dropdown, style_dropdown_div, style_uplaod_page, \
-    style_select_subplot, style_compared_r2, style_button, style_button_2, style_first, style_second
+    style_select_subplot, style_compared_r2, style_button, style_button_2, style_first, style_second, style_author
 
 # sekcje
 from sections import upload_page, ComparedR2Page, select_variable_page, WrongFilePage, TablePage
@@ -46,12 +46,14 @@ app.layout = html.Div([
 
     html.Div(id='first-page',
              children=[
+                 html.Div("Bartosz Wójtowicz, kontakt: bartoszjanjerzy@gmail.com", style=style_author),
                  upload_page
              ],
              style=style_first),
 
     html.Div(id='second-page',
              children=[
+                 html.Div("Bartosz Wójtowicz, kontakt: bartoszjanjerzy@gmail.com", style=style_author),
                  select_variable_page
              ],
              style={'display':'none'})

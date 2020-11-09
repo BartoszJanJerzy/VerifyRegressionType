@@ -172,3 +172,8 @@ style_h2 = {'font-size':40}
 style_h3 = {'font-size':30}
 style_comment = {'font-size':20, 'font-size':'italic'}
 style_h4 = {'font-size':20,}
+
+style_author = {
+    'width':500,
+    'color':'grey',
+}
