@@ -145,7 +145,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
             x=temp_df_deg1['x_col'],
             y=temp_df_deg1['y_col'],
             mode='lines',
-            marker=dict(color='#A1C181')
+            marker=dict(color='#FFBA08')
         )
         subplots.append(new_plot)
 
@@ -155,7 +155,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
             x=temp_df_deg2['x_col'],
             y=temp_df_deg2['y_col'],
             mode='lines',
-            marker=dict(color='#FCCA46')
+            marker=dict(color='#E85D04')
         )
         subplots.append(new_plot)
 
@@ -165,7 +165,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
             x=temp_df_deg3['x_col'],
             y=temp_df_deg3['y_col'],
             mode='lines',
-            marker=dict(color='#FE7F2D')
+            marker=dict(color='#9D0208')
         )
         subplots.append(new_plot)
 
@@ -175,7 +175,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
             x=temp_df_deg4['x_col'],
             y=temp_df_deg4['y_col'],
             mode='lines',
-            marker=dict(color='#233D4D')
+            marker=dict(color='#03071E')
         )
         subplots.append(new_plot)
 
@@ -183,7 +183,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
         data=subplots,
         layout=go.Layout(
             title='Wykres porównawczy regresji',
-            width=900,
+            width=1000,
             height=700,
             showlegend=True,
             xaxis_title = x_name,

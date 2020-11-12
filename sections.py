@@ -42,7 +42,8 @@ upload_page = html.Div(children=[
 def ComparedR2Page(x, y, linear, deg2, deg3, deg4):
     return html.Div(id='compared-r2',
                     children=[
-                        html.H3(f"Predyktor X: {x},  Zmienna zależna Y: {y}", style=style_h3),
+                        html.H2(f"Predyktor X: {x}", style=style_h2),
+                        html.H2(f"Zmienna zależna Y: {y}", style=style_h2),
                         html.H4(f"R^2 regresji liniowej wynosi {linear}", style=style_h4),
                         html.H4(f"R^2 regresji stopnia 2' wynosi {deg2}", style=style_h4),
                         html.H4(f"R^2 regresji stopnia 3' wynosi {deg3}", style=style_h4),
@@ -88,7 +89,7 @@ select_variable_page = html.Div(id='',
                                 children=[
                                     html.Div(id='choose-data-div',
                                                              children=[
-                                                                 html.H3('Wybierz predytor X', style=style_h3),
+                                                                 html.H2('Wybierz predytor X', style=style_h2),
                                                                  dcc.Dropdown(
                                                                   id='x-dropdown',
                                                                   style=style_dropdown
@@ -96,19 +97,19 @@ select_variable_page = html.Div(id='',
 
                                                               html.Br(),
 
-                                                              html.H3('Wybierz zmienną zależną Y'),
+                                                              html.H2('Wybierz zmienną zależną Y', style=style_h2),
                                                               dcc.Dropdown(
                                                                   id='y-dropdown',
                                                                   style=style_dropdown
                                                               ),
-                                                          ],
-                                                          style={}),
+                                                          ]
+                                             ),
 
                                     html.Div(id='compared-r2-div'),
 
                                     html.Div(id='select-subplots-div',
                                              children=[
-                                                 html.H3('Wybierz regresję do zilustrowania'),
+                                                 html.H2('Wybierz regresję do zilustrowania', style=style_h2),
                                                  dcc.Checklist(
                                                      id='subplots-checklist',
                                                      options=[
@@ -134,6 +135,6 @@ select_variable_page = html.Div(id='',
 
 def WrongFilePage(filename):
     return html.Div([
-        html.H3(f'Niestety... Nie potrafię wykorzystać Twójego pliku "{filename}".'),
+        html.H3(f'Niestety... Nie potrafię wykorzystać Twójego pliku "{filename}".', style=style_h3),
         html.A(html.Button(children='Kliknij tutaj i spróbuj jeszcze raz', style=style_button_2), href='/'),
     ])

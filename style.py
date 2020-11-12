@@ -28,9 +28,7 @@ style_second = {
     'background-image': f'url(data:image/png;base64,{encoded_background.decode()}',
 
     'position':'relative',
-    'color':'black'
-
-
+    'color':'#46494C'
 }
 
 
@@ -39,7 +37,7 @@ style_second = {
 style_uplaod_page = {
     'text-align':'center',
     'padding-top':20,
-    'color':'black',
+    'color':'#46494C',
 }
 
 style_upload = {
@@ -62,7 +60,7 @@ style_table = {
     'width': '1300px',
     'height': '250px',
     'margin':'0px auto',
-    'box-shadow':'0px 0px 30px 0px rgba(35, 61, 77, 0.5)'
+    'box-shadow':'0px 0px 30px 0px rgba(29, 51, 84, 0.5)'
 }
 
 style_table_div = {
@@ -96,27 +94,31 @@ style_button_div = {
 
 style_button = {
     'width':'700px',
-    'margin':'5px auto',
+    'margin':'10px auto',
     'padding':'5px 50px',
 
-    'border':'none',
-    'background-color':'#A1C181',
+    'border':'1px solid green',
+    'border-radius':2,
+    'background-color':'white',
+    # 'box-shadow':'0px 0px 20px 0px rgba(255, 186, 8, 0.7)',
 
-    # 'opacity':0.5,
-    'color':'#233D4D',
+    'opacity':0.5,
+    'color':'green',
     'font-size':20
 }
 
 style_button_2 = {
     'width':'700px',
-    'margin':'5px auto',
+    'margin':'10px auto',
     'padding':'5px 50px',
 
-    'border':'none',
-    'background-color':'#FE7F2D',
+    'border':'1px solid red',
+    'border-radius':2,
+    'background-color':'white',
+    # 'box-shadow':'0px 0px 20px 0px rgba(157, 2, 8, 0.5)',
+    'color': 'red',
+    'opacity':0.5,
 
-    # 'opacity':0.5,
-    'color':'#233D4D',
     'font-size':20
 }
 
@@ -125,10 +127,12 @@ style_button_3 = {
     'min-width': '10px',
     'padding': '5px 50px',
 
-    'border':'none',
-    'background-color':'#FE7F2D',
-    # 'opacity': 0.5,
-    'color': '#233D4D',
+    'border':'1px solid orange',
+    'border-radius':2,
+    'background-color':'white',
+    # 'box-shadow':'0px 0px 20px 0px rgba(214, 64, 69, 0.5)',
+    'color': 'orange',
+    'opacity':0.85,
 
     'position':'absolute',
     'top':850,
@@ -167,11 +171,11 @@ style_graph = {
 
 # ----------------------------------------
 # HEADINGS
-style_h1 = {'font-size':60}
-style_h2 = {'font-size':40}
-style_h3 = {'font-size':30}
-style_comment = {'font-size':20, 'font-size':'italic'}
-style_h4 = {'font-size':20,}
+style_h1 = {'font-size':50}
+style_h2 = {'font-size':30}
+style_h3 = {'font-size':20}
+style_comment = {'font-size':16, 'font-style':'italic'}
+style_h4 = {'font-size':16,}
 
 style_author = {
     'width':500,
