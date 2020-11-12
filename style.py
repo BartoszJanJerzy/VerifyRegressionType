@@ -155,7 +155,7 @@ style_select_subplot = {
 style_compared_r2 = {
     'width': '700px',
     'position':'absolute',
-    'top':500,
+    'top':550,
     'left':75,
     'padding':'5px 20px',
     # 'border': '1px solid red',

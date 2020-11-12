@@ -42,8 +42,7 @@ upload_page = html.Div(children=[
 def ComparedR2Page(x, y, linear, deg2, deg3, deg4):
     return html.Div(id='compared-r2',
                     children=[
-                        html.H3(f"Predyktor X: {x}", style=style_h3),
-                        html.H3(f"Zmienna zależna Y: {y}", style=style_h3),
+                        html.H3(f"Predyktor X: {x}    Zmienna zależna Y: {y}", style=style_h3),
                         html.H4(f"R^2 regresji liniowej wynosi {linear}", style=style_h4),
                         html.H4(f"R^2 regresji stopnia 2' wynosi {deg2}", style=style_h4),
                         html.H4(f"R^2 regresji stopnia 3' wynosi {deg3}", style=style_h4),
