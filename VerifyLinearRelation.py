@@ -17,14 +17,13 @@ import base64
 # _______________________________________________________________________
 # IMPORTOWANIE MODUŁÓW
 # style
-from style import external_stylesheets, style_whole, style_dropdown, style_dropdown_div, style_uplaod_page, \
-    style_select_subplot, style_compared_r2, style_button, style_button_2, style_first, style_second, style_author
+from my_module.style import external_stylesheets, style_dropdown_div, style_select_subplot, style_compared_r2, style_author
 
 # sekcje
-from sections import upload_page, ComparedR2Page, select_variable_page, WrongFilePage, TablePage
+from my_module.sections import first_page, ComparedR2Page, WrongFilePage, TablePage, result_page
 
 # funkcje
-from functions import parse_contents, CompareR2, SelectNumberCols, MakeGraphData, MakeGraph
+from my_module.functions import parse_contents, CompareR2, SelectNumberCols, MakeGraphData, MakeGraph
 # _______________________________________________________________________
 
 # przygotowanie obrazu
@@ -42,23 +41,21 @@ server = app.server
                           style={'position':'absolute', 'top':0, 'z-index':0}),
 '''
 
-app.layout = html.Div([
+background = r'background.jpg'
+encoded_background = base64.b64encode(open(background,"rb").read())
+style={
+    'background-image': f'url(data:image/png;base64,{encoded_background.decode()}',
+    'background-repeat':'no-repeat',
+    'background-attachment':'fixed',
+    'background-height':'100%',
+    'margin':'0px',
+    'padding':'0px'
+}
 
-    html.Div(id='first-page',
-             children=[
-                 html.Div("Bartosz Wójtowicz, kontakt: bartoszjanjerzy@gmail.com", style=style_author),
-                 upload_page
-             ],
-             style=style_first),
-
-    html.Div(id='second-page',
-             children=[
-                 html.Div("Bartosz Wójtowicz, kontakt: bartoszjanjerzy@gmail.com", style=style_author),
-                 select_variable_page
-             ],
-             style={'display':'none'})
-],
-style=style_whole)
+app.layout = html.Div(id='body', children=[
+    html.Div(children=first_page),
+    html.Div(className='', children=result_page)
+], style=style)
 # _______________________________________________________________________
 
 # WYŚWIETLANIE PODSTRON
@@ -72,43 +69,46 @@ def display_page(pathname):
     if pathname == '/tech':
         pass
     else:
-        return upload_page
+        return first_page
 
 # SPRAWDZENIE POPRAWNOŚCI PLIKU
 @app.callback(
     [
         Output('verify-file-div', 'children'),
-        Output('upload-data', 'style'),
-        Output('choose-data-div', 'style'),
-        Output('second-page', 'style')
+        Output('headings-div', 'className'),
+        Output('upload-data', 'className')
     ],
     Input('upload-data','contents'),
-    State('upload-data','filename'),
+    State('upload-data','filename')
 )
 def VerifyUploadedFile(contents, filename):
     children = ''
     style = {'display':'none'}
 
-    if filename.lower().endswith('.csv'):
+    if filename.lower().endswith('.xlsx'):
+        raw_data = parse_contents(contents, 'xlsx')
+        children = TablePage(raw_data)
+
+        return children, 'hidden', 'hidden'
+
+    elif filename.lower().endswith('.csv'):
         raw_data = parse_contents(contents, 'csv')
         children = TablePage(raw_data)
 
-        return children, style, style_dropdown_div, style_second
+        return children, 'hidden', 'hidden'
 
     elif len(filename) == 0:
         raise PreventUpdate
-
     else:
         children = WrongFilePage(filename)
 
-        return children, style, style_dropdown_div, style
+        return children,'hidden', 'hidden'
 
 
 # POTWIERDZENIE PLIKU
-
 @app.callback(
     [
-        Output('confirm-data-button','style'),
+        Output('first-page','className'),
         Output('x-dropdown', 'options'),
         Output('y-dropdown', 'options')
     ],
@@ -119,7 +119,7 @@ def HideTable_ShowResults(n_clicks, contents):
     style_none = {'display':'none'}
 
     if n_clicks >= 1:
-        raw_data = parse_contents(contents, 'csv')
+        raw_data = parse_contents(contents, 'xlsx')
         columns = raw_data.columns
         df = SelectNumberCols(raw_data, columns)
         columns = df.columns
@@ -132,9 +132,9 @@ def HideTable_ShowResults(n_clicks, contents):
             option = {'label': c, 'value': c}
             options_list.append(option)
 
-        return style_none, options_list, options_list
+        return 'hidden', options_list, options_list
     else:
-        return style_button, [], []
+        return {}, [], []
 
 # POKAŻ WARTOŚCI R^2 + WYKRES
 @app.callback(
@@ -154,7 +154,7 @@ def HideTable_ShowResults(n_clicks, contents):
 def ShowComparedR2(x,y, contents, selected_subplots):
 
     if x and y:
-        raw_data = parse_contents(contents, 'csv')
+        raw_data = parse_contents(contents, 'xlsx')
         columns = raw_data.columns
         df = SelectNumberCols(raw_data, columns)
 
@@ -173,7 +173,7 @@ def ShowComparedR2(x,y, contents, selected_subplots):
 
         # wykres
         graph = MakeGraph(df[x], df[y], linear_r2, temp_df_deg1,
-                          deg2_r2, temp_df_deg2, deg3_r2, temp_df_deg3, deg4_r2, temp_df_deg4, selected_subplots, x, y)
+                          deg2_r2, temp_df_deg2, deg3_r2, temp_df_deg3, deg4_r2, temp_df_deg4, selected_subplots, 'Parties support polarization', 'Selective Exposure')
 
         return children, style_compared_r2, style_select_subplot, dcc.Graph(figure=graph)
     else:

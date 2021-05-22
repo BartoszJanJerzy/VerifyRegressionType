@@ -1,0 +1,72 @@
+/* GENERAL */
+html {
+    scroll-behavior:smooth;
+}
+#body {
+    min-height:1080px;
+    margin:0px auto;
+    padding:0px;
+
+    font-family: 'Spartan', sans-serif;
+    color:rgba(70,70,70,1);
+
+    background-color:white;
+}
+.blue {
+    color:rgba(60, 145, 230,1);
+}
+.red {
+    color:rgba(250, 130, 76, 1);
+}
+.green {
+    color:rgba(162, 215, 41, 1);
+}
+.hidden {
+    display:none;
+}
+.button:hover {
+    transform:scale(1.05);
+    cursor:pointer;
+    transition:0.5s;
+}
+
+/* FIRST PAGE */
+#first-page{
+    width:100%;
+
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+}
+#headings-div {
+    width:100%;
+    margin:20px;
+    text-align:center;
+}
+#upload-data {
+    margin-top:20px;
+    transition:0.5s;
+}
+
+#headings-div h1 {
+    font-size:90px;
+
+    margin:30px 0px;
+    padding:0px;
+}
+#headings-div h2 {
+    font-size:50px;
+
+    margin:30px 0px;
+    padding:0px;
+}
+#headings-div h3 {
+    font-size:30px;
+
+    margin:30px 0px;
+    padding:0px;
+}
+
+
+
