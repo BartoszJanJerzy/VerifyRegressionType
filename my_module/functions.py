@@ -141,7 +141,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
 
     if 'linear' in selected_subplots:
         new_plot = go.Scatter(
-            name=f'Linear model: adj. squared R={round(linear_r2,2)}',
+            name=f'Linear model: squared R={round(linear_r2,1)*100}%',
             x=temp_df_deg1['x_col'],
             y=temp_df_deg1['y_col'],
             line=dict(color='#FFBA08', dash='dash')
@@ -150,7 +150,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
 
     if 'deg2' in selected_subplots:
         new_plot = go.Scatter(
-            name=f"Square model: adj. squared R={round(deg2_r2,2)}",
+            name=f"Squared model: squared R={round(deg2_r2,1)*100}%",
             x=temp_df_deg2['x_col'],
             y=temp_df_deg2['y_col'],
             line=dict(color='#E85D04')
@@ -159,7 +159,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
 
     if 'deg3' in selected_subplots:
         new_plot = go.Scatter(
-            name=f"The third degree model: adj. squared R={round(deg3_r2,2)}",
+            name=f"3' degree model: squared R={round(deg3_r2,1)*100}%",
             x=temp_df_deg3['x_col'],
             y=temp_df_deg3['y_col'],
             mode='lines',
@@ -169,7 +169,7 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
 
     if 'deg4' in selected_subplots:
         new_plot = go.Scatter(
-            name=f"The fourth degree model: adj. squared R={round(deg4_r2,2)}",
+            name=f"4' degree model: squared R={round(deg4_r2,1)*100}%",
             x=temp_df_deg4['x_col'],
             y=temp_df_deg4['y_col'],
             mode='lines',
@@ -180,8 +180,8 @@ def MakeGraph(df_X, df_Y, linear_r2, temp_df_deg1, deg2_r2, temp_df_deg2, deg3_r
     graph = go.Figure(
         data=subplots,
         layout=go.Layout(
-            title='Different reggression models comparison',
-            width=1000,
+            title='Different regression models comparison',
+            width=900,
             height=700,
             showlegend=True,
             xaxis_title = x_name,

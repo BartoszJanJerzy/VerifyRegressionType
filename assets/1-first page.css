@@ -24,6 +24,9 @@ html {
 .hidden {
     display:none;
 }
+.button {
+    transition:0.5s;
+}
 .button:hover {
     transform:scale(1.05);
     cursor:pointer;

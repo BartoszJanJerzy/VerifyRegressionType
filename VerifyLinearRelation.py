@@ -54,7 +54,7 @@ style={
 
 app.layout = html.Div(id='body', children=[
     html.Div(children=first_page),
-    html.Div(className='', children=result_page)
+    html.Div(id='second-page', className='hidden', children=result_page)
 ], style=style)
 # _______________________________________________________________________
 
@@ -110,53 +110,87 @@ def VerifyUploadedFile(contents, filename):
     [
         Output('first-page','className'),
         Output('x-dropdown', 'options'),
-        Output('y-dropdown', 'options')
+        Output('y-dropdown', 'options'),
+        Output('second-page', 'className')
     ],
     Input('confirm-data-button', 'n_clicks'),
-    State('upload-data','contents')
+    [
+        State('upload-data','contents'),
+        State('upload-data', 'filename')
+    ]
 )
-def HideTable_ShowResults(n_clicks, contents):
-    style_none = {'display':'none'}
+def HideTable_ShowResults(n_clicks, contents, filename):
+    if filename.lower().endswith('.xlsx'):
+        if n_clicks >= 1:
+            raw_data = parse_contents(contents, 'xlsx')
+            columns = raw_data.columns
+            df = SelectNumberCols(raw_data, columns)
+            columns = df.columns
 
-    if n_clicks >= 1:
-        raw_data = parse_contents(contents, 'xlsx')
-        columns = raw_data.columns
-        df = SelectNumberCols(raw_data, columns)
-        columns = df.columns
+            print(columns)
 
-        print(columns)
+            # lista kolumn do drop-down
+            options_list = []
+            for c in columns:
+                option = {'label': c, 'value': c}
+                options_list.append(option)
 
-        # lista kolumn do drop-down
-        options_list = []
-        for c in columns:
-            option = {'label': c, 'value': c}
-            options_list.append(option)
+            return 'hidden', options_list, options_list, ''
+        else:
+            return '', [], [], 'hidden'
+    elif filename.lower().endswith('.csv'):
+        if n_clicks >= 1:
+            raw_data = parse_contents(contents, 'csv')
+            columns = raw_data.columns
+            df = SelectNumberCols(raw_data, columns)
+            columns = df.columns
 
-        return 'hidden', options_list, options_list
+            print(columns)
+
+            # lista kolumn do drop-down
+            options_list = []
+            for c in columns:
+                option = {'label': c, 'value': c}
+                options_list.append(option)
+
+            return 'hidden', options_list, options_list, ''
+        else:
+            return '', [], [], 'hidden'
     else:
-        return {}, [], []
+        raise PreventUpdate
 
 # POKAŻ WARTOŚCI R^2 + WYKRES
 @app.callback(
     [
         Output('compared-r2-div', 'children'),
-        Output('compared-r2-div', 'style'),
-        Output('select-subplots-div', 'style'),
-        Output('graph-div', 'children')
+        Output('compared-r2-div', 'className'),
+        Output('select-subplots-div', 'className'),
+        Output('graph-div', 'children'),
+        Output('graph-div', 'className')
     ],
     [
         Input('x-dropdown','value'),
         Input('y-dropdown','value'),
         Input('upload-data', 'contents'),
         Input('subplots-checklist', 'value'),
-    ]
+    ],
+    State('upload-data', 'filename')
 )
-def ShowComparedR2(x,y, contents, selected_subplots):
+def ShowComparedR2(x,y, contents, selected_subplots, filename):
+    raw_data = ''
+
+    if filename.lower().endswith('.xlsx'):
+        raw_data = parse_contents(contents, 'xlsx')
+    elif filename.lower().endswith('.csv'):
+        raw_data = parse_contents(contents, 'csv')
+    else:
+        raise PreventUpdate
 
     if x and y:
-        raw_data = parse_contents(contents, 'xlsx')
         columns = raw_data.columns
         df = SelectNumberCols(raw_data, columns)
+        df[x].fillna(value=df[x].mean(), inplace=True)
+        df[y].fillna(value=df[y].mean(), inplace=True)
 
         # dane do regresji
         X = df[x].to_numpy().reshape(-1, 1)
@@ -173,9 +207,9 @@ def ShowComparedR2(x,y, contents, selected_subplots):
 
         # wykres
         graph = MakeGraph(df[x], df[y], linear_r2, temp_df_deg1,
-                          deg2_r2, temp_df_deg2, deg3_r2, temp_df_deg3, deg4_r2, temp_df_deg4, selected_subplots, 'Parties support polarization', 'Selective Exposure')
+                          deg2_r2, temp_df_deg2, deg3_r2, temp_df_deg3, deg4_r2, temp_df_deg4, selected_subplots, x, y)
 
-        return children, style_compared_r2, style_select_subplot, dcc.Graph(figure=graph)
+        return children, '', '', dcc.Graph(figure=graph), ''
     else:
         raise PreventUpdate
 

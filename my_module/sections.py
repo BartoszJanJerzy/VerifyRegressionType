@@ -43,11 +43,22 @@ first_page = html.Div(id='first-page', children=[
 def ComparedR2Page(x, y, linear, deg2, deg3, deg4):
     return html.Div(id='compared-r2',
                     children=[
-                        html.H3(f"Predyktor X: {x}    Zmienna zależna Y: {y}", style=style_h3),
-                        html.H4(f"R^2 regresji liniowej wynosi {linear}", style=style_h4),
-                        html.H4(f"R^2 regresji stopnia 2' wynosi {deg2}", style=style_h4),
-                        html.H4(f"R^2 regresji stopnia 3' wynosi {deg3}", style=style_h4),
-                        html.H4(f"R^2 regresji stopnia 4' wynosi {deg4}", style=style_h4),
+                        html.H4(children=[
+                            html.I(className='fas fa-chess-pawn'),
+                            f" R^2 for linear regression {round(linear,2)*100}%"
+                        ]),
+                        html.H4(children=[
+                            html.I(className='fas fa-chess-knight'),
+                            f" R^2 for squared regression {round(deg2,2)*100}%"
+                        ]),
+                        html.H4(children=[
+                            html.I(className='fas fa-chess-rook'),
+                            f" R^2 for 3' degree regression {round(deg3,2)*100}%"
+                        ]),
+                        html.H4(children=[
+                            html.I(className='fas fa-chess-king'),
+                            f" R^2 for 4' degree regression {round(deg4,2)*100}%"
+                        ])
                     ])
 
 def TablePage(raw_data):
@@ -83,7 +94,7 @@ def TablePage(raw_data):
                  ]),
 
 result_page = html.Div(id='result-page', children=[
-    html.Div(id='choose-data-div',
+    html.Div(id='choose-data-div', className='hidden',
              children=[
                  html.Div(className='variable-div', id='x-div', children=[
                      html.H3('Choose predictor X'),
@@ -95,28 +106,28 @@ result_page = html.Div(id='result-page', children=[
                  ])
              ]),
 
-    html.Div(id='compared-r2-div'),
-
-    html.Div(id='select-subplots-div',
+    html.Div(id='select-subplots-div', className='hidden',
              children=[
-                 html.H3('Wybierz regresję do zilustrowania', style=style_h3),
+                 html.H3('Choose regression to vizualization'),
                  dcc.Checklist(id='subplots-checklist',
                                options=[
-                                    {'label': 'Regresja liniowa', 'value': 'linear'},
-                                    {'label': "Regresja stopnia 2'", 'value': 'deg2'},
-                                    {'label': "Regresja stopnia 3'", 'value': 'deg3'},
-                                    {'label': "Regresja stopnia 4'", 'value': 'deg4'}
+                                    {'label': 'Linear regression', 'value': 'linear'},
+                                    {'label': "Squared regression", 'value': 'deg2'},
+                                    {'label': "3' degree regression'", 'value': 'deg3'},
+                                    {'label': "4' degree regression", 'value': 'deg4'}
                                ],
                                labelStyle={'display': 'block', 'font-size': 20},
                                value=[]
-                               )],
-             style={'display': 'none'}),
+                               ),
 
-    html.Div(id='graph-div', style=style_graph),
+                 html.Div(id='compared-r2-div', className='hidden'),
 
-    html.A(html.Button(id='refresh-button-2',
-                       children='Może chcesz dac inny plik?'),
-           href='/')
+                 html.A(id='refresh-button-2',
+                        children=html.I(className='fas fa-2x fa-undo-alt blue button'),
+                        href='/')
+             ]),
+
+    html.Div(id='graph-div', className='hidden'),
 ])
 
 def WrongFilePage(filename):
